@@ -1,8 +1,8 @@
 #include "twopow/twopow.hpp"
 
-#include <cstdint>
-
 #include <gtest/gtest.h>
+
+#include <cstdint>
 
 TEST(TwoPow, ZeroExponentIsOne) {
     EXPECT_EQ(twopow::two_pow(0), std::uint64_t{1});

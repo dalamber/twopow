@@ -1,8 +1,8 @@
+#include <gtest/gtest.h>
+
 #include <array>
 #include <cstdio>
 #include <string>
-
-#include <gtest/gtest.h>
 
 #ifdef _WIN32
 #define popen _popen

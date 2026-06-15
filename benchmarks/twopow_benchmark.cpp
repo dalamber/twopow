@@ -1,6 +1,6 @@
-#include "twopow/twopow.hpp"
-
 #include <benchmark/benchmark.h>
+
+#include "twopow/twopow.hpp"
 
 static void BM_TwoPow(benchmark::State& state) {
     const auto exponent = static_cast<unsigned>(state.range(0));

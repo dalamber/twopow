@@ -18,10 +18,9 @@ inline constexpr unsigned kDefaultExponent = 2;
 class overflow_error : public std::overflow_error {
 public:
     explicit overflow_error(unsigned exponent)
-        : std::overflow_error(
-              "twopow: exponent " + std::to_string(exponent) +
-              " exceeds maximum supported value " +
-              std::to_string(kMaxExponent)),
+        : std::overflow_error("twopow: exponent " + std::to_string(exponent) +
+                              " exceeds maximum supported value " +
+                              std::to_string(kMaxExponent)),
           exponent_(exponent) {}
 
     /// The offending exponent that triggered the overflow.

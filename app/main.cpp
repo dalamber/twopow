@@ -1,9 +1,9 @@
-#include "twopow/twopow.hpp"
-
 #include <cstdlib>
 #include <iostream>
 #include <string>
 #include <string_view>
+
+#include "twopow/twopow.hpp"
 
 namespace {
 
@@ -13,8 +13,8 @@ constexpr int kExitOverflow = 1;
 
 void print_usage(std::ostream& os) {
     os << "Usage: twopow-cli [EXPONENT]\n"
-       << "Compute 2 raised to EXPONENT (default "
-       << twopow::kDefaultExponent << ").\n\n"
+       << "Compute 2 raised to EXPONENT (default " << twopow::kDefaultExponent
+       << ").\n\n"
        << "Options:\n"
        << "  -h, --help     Show this help and exit.\n"
        << "  -v, --version  Show version information and exit.\n";
@@ -41,7 +41,8 @@ int main(int argc, char** argv) {
             const std::string s(arg);
             const unsigned long parsed = std::stoul(s, &consumed);
             if (consumed != s.size()) {
-                std::cerr << "twopow-cli: not a valid exponent: " << arg << "\n";
+                std::cerr << "twopow-cli: not a valid exponent: " << arg
+                          << "\n";
                 return kExitUsage;
             }
             exponent = static_cast<unsigned>(parsed);
