@@ -1,0 +1,14 @@
+PROJECT_NAME           = "twopow"
+PROJECT_NUMBER         = 0.1.0
+PROJECT_BRIEF          = "Deterministic base-2 exponentiation for modern C++"
+OUTPUT_DIRECTORY       = doxygen
+INPUT                  = ../include index.md
+FILE_PATTERNS          = *.hpp *.md
+USE_MDFILE_AS_MAINPAGE = index.md
+RECURSIVE              = YES
+GENERATE_LATEX         = NO
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+QUIET                  = YES
+WARN_AS_ERROR          = NO
+EXTRACT_ALL            = YES
