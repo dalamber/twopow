@@ -1,0 +1,31 @@
+.TH TWOPOW-CLI 1 "2026-06-15" "twopow 0.1.0" "User Commands"
+.SH NAME
+twopow-cli \- compute 2 raised to an exponent
+.SH SYNOPSIS
+.B twopow-cli
+.RI [ EXPONENT ]
+.SH DESCRIPTION
+.B twopow-cli
+prints 2 raised to the power
+.IR EXPONENT .
+If no exponent is given, the default of 2 is used (yielding 4).
+The valid domain is the closed interval [0, 63].
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Show usage and exit.
+.TP
+.BR \-v ", " \-\-version
+Show version information and exit.
+.SH EXIT STATUS
+.TP
+.B 0
+Success.
+.TP
+.B 1
+The exponent exceeded the supported maximum of 63.
+.TP
+.B 2
+The argument was not a valid exponent.
+.SH SEE ALSO
+Project documentation: https://OWNER.github.io/twopow/

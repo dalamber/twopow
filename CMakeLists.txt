@@ -34,6 +34,9 @@ if(TWOPOW_ENABLE_COVERAGE)
     target_link_options(twopow PUBLIC --coverage)
 endif()
 
+# --- Install layout (must precede subdirectories that install) ------------
+include(GNUInstallDirs)
+
 # --- Subdirectories -------------------------------------------------------
 if(TWOPOW_BUILD_CLI)
     add_subdirectory(app)
@@ -49,7 +52,6 @@ if(TWOPOW_BUILD_BENCHMARKS)
 endif()
 
 # --- Install / export -----------------------------------------------------
-include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 install(TARGETS twopow

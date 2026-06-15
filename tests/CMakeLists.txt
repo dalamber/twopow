@@ -7,6 +7,8 @@ FetchContent_Declare(
 
 # Prevent GoogleTest from overriding compiler/linker options on Windows.
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+# Do not install GoogleTest alongside twopow.
+set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(twopow_tests twopow_test.cpp)
