@@ -1,0 +1,35 @@
+# Build
+/build/
+/out/
+/cmake-build-*/
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeUserPresets.json
+_deps/
+install/
+
+# Coverage
+*.gcda
+*.gcno
+*.gcov
+coverage/
+coverage.xml
+
+# Docs
+/docs/html/
+/docs/doxygen/
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
