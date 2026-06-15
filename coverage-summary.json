@@ -1,0 +1,39 @@
+{
+    "branch_covered": 7,
+    "branch_percent": 58.3,
+    "branch_total": 12,
+    "files": [
+        {
+            "branch_covered": 4,
+            "branch_percent": 50.0,
+            "branch_total": 8,
+            "filename": "include/twopow/twopow.hpp",
+            "function_covered": 2,
+            "function_percent": 100.0,
+            "function_total": 2,
+            "line_covered": 6,
+            "line_percent": 100.0,
+            "line_total": 6
+        },
+        {
+            "branch_covered": 3,
+            "branch_percent": 75.0,
+            "branch_total": 4,
+            "filename": "src/twopow.cpp",
+            "function_covered": 1,
+            "function_percent": 100.0,
+            "function_total": 1,
+            "line_covered": 4,
+            "line_percent": 100.0,
+            "line_total": 4
+        }
+    ],
+    "function_covered": 3,
+    "function_percent": 100.0,
+    "function_total": 3,
+    "gcovr/summary_format_version": "0.5",
+    "line_covered": 10,
+    "line_percent": 100.0,
+    "line_total": 10,
+    "root": ".."
+}
