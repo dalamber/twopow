@@ -14,3 +14,12 @@ target_link_libraries(twopow_tests PRIVATE twopow::twopow GTest::gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(twopow_tests)
+
+if(TWOPOW_BUILD_CLI)
+    add_executable(twopow_cli_tests cli_test.cpp)
+    target_link_libraries(twopow_cli_tests PRIVATE GTest::gtest_main)
+    target_compile_definitions(twopow_cli_tests PRIVATE
+        TWOPOW_CLI_PATH="$<TARGET_FILE:twopow-cli>")
+    add_dependencies(twopow_cli_tests twopow-cli)
+    gtest_discover_tests(twopow_cli_tests)
+endif()
