@@ -1,0 +1,44 @@
+name: Coverage
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y cmake gcovr
+      - name: Configure with coverage
+        run: cmake --preset coverage
+      - name: Build and test
+        run: |
+          cmake --build --preset coverage
+          ctest --preset default --test-dir build || true
+      - name: Generate coverage badge
+        run: |
+          mkdir -p public
+          gcovr --root . --filter 'src/' --filter 'include/' \
+            --exclude '.*_test\.cpp' \
+            --txt --output coverage.txt
+          gcovr --root . --filter 'src/' --filter 'include/' \
+            --exclude '.*_test\.cpp' \
+            --json-summary-pretty --output public/coverage-summary.json
+          PCT=$(python3 -c "import json;print(round(json.load(open('public/coverage-summary.json'))['line_percent']))")
+          echo "Coverage: ${PCT}%"
+          COLOR=red; [ "$PCT" -ge 60 ] && COLOR=yellow; [ "$PCT" -ge 80 ] && COLOR=green
+          cat > public/coverage.json <<EOF
+          {"schemaVersion":1,"label":"coverage","message":"${PCT}%","color":"${COLOR}"}
+          EOF
+      - name: Publish badge to badges branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: badges
+          keep_files: true
