@@ -1,0 +1,47 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": { "major": 3, "minor": 20, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "Default (Release, tests on)",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "TWOPOW_BUILD_TESTS": "ON",
+        "TWOPOW_BUILD_CLI": "ON"
+      }
+    },
+    {
+      "name": "debug",
+      "inherits": "default",
+      "displayName": "Debug",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "coverage",
+      "inherits": "debug",
+      "displayName": "Coverage",
+      "cacheVariables": { "TWOPOW_ENABLE_COVERAGE": "ON" }
+    },
+    {
+      "name": "bench",
+      "inherits": "default",
+      "displayName": "Benchmarks",
+      "cacheVariables": { "TWOPOW_BUILD_BENCHMARKS": "ON" }
+    }
+  ],
+  "buildPresets": [
+    { "name": "default", "configurePreset": "default" },
+    { "name": "debug", "configurePreset": "debug" },
+    { "name": "coverage", "configurePreset": "coverage" },
+    { "name": "bench", "configurePreset": "bench" }
+  ],
+  "testPresets": [
+    {
+      "name": "default",
+      "configurePreset": "default",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}
