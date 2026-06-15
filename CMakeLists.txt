@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(twopow
     VERSION 0.1.0
     DESCRIPTION "Deterministic base-2 exponentiation for modern C++"
-    HOMEPAGE_URL "https://github.com/OWNER/twopow"
+    HOMEPAGE_URL "https://github.com/dalamber/twopow"
     LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -84,7 +84,7 @@ install(FILES
 
 # --- Packaging ------------------------------------------------------------
 set(CPACK_PACKAGE_NAME "twopow")
-set(CPACK_PACKAGE_VENDOR "Anton Shpakovsky")
+set(CPACK_PACKAGE_VENDOR "Anton Shpakovskiy")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${PROJECT_DESCRIPTION}")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")

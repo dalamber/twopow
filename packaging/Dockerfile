@@ -13,7 +13,7 @@ RUN cmake -S . -B build \
     cmake --install build --prefix /opt/twopow
 
 FROM debian:bookworm-slim AS runtime
-LABEL org.opencontainers.image.source="https://github.com/OWNER/twopow"
+LABEL org.opencontainers.image.source="https://github.com/dalamber/twopow"
 LABEL org.opencontainers.image.description="Deterministic base-2 exponentiation"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 COPY --from=build /opt/twopow/bin/twopow-cli /usr/local/bin/twopow-cli

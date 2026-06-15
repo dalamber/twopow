@@ -1,10 +1,10 @@
 # twopow
 
-[![CI](https://github.com/OWNER/twopow/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/twopow/actions/workflows/ci.yml)
-[![Lint](https://github.com/OWNER/twopow/actions/workflows/lint.yml/badge.svg)](https://github.com/OWNER/twopow/actions/workflows/lint.yml)
-[![CodeQL](https://github.com/OWNER/twopow/actions/workflows/codeql.yml/badge.svg)](https://github.com/OWNER/twopow/actions/workflows/codeql.yml)
-[![Docs](https://github.com/OWNER/twopow/actions/workflows/docs.yml/badge.svg)](https://github.com/OWNER/twopow/actions/workflows/docs.yml)
-[![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/OWNER/twopow/badges/coverage.json)](https://github.com/OWNER/twopow/actions/workflows/coverage.yml)
+[![CI](https://github.com/dalamber/twopow/actions/workflows/ci.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/ci.yml)
+[![Lint](https://github.com/dalamber/twopow/actions/workflows/lint.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/lint.yml)
+[![CodeQL](https://github.com/dalamber/twopow/actions/workflows/codeql.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/codeql.yml)
+[![Docs](https://github.com/dalamber/twopow/actions/workflows/docs.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/docs.yml)
+[![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/dalamber/twopow/badges/coverage.json)](https://github.com/dalamber/twopow/actions/workflows/coverage.yml)
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://en.cppreference.com/w/cpp/20)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
@@ -56,7 +56,7 @@ with Google Benchmark on Apple clang (arm64):
 ```cmake
 include(FetchContent)
 FetchContent_Declare(twopow
-    GIT_REPOSITORY https://github.com/OWNER/twopow.git
+    GIT_REPOSITORY https://github.com/dalamber/twopow.git
     GIT_TAG v0.1.0)
 FetchContent_MakeAvailable(twopow)
 target_link_libraries(your_target PRIVATE twopow::twopow)
@@ -77,7 +77,7 @@ vcpkg install twopow
 ### Docker
 
 ```bash
-docker run --rm ghcr.io/OWNER/twopow 10   # prints 1024
+docker run --rm ghcr.io/dalamber/twopow 10   # prints 1024
 ```
 
 ## Quick Start
@@ -100,7 +100,7 @@ int main() {
 | `twopow::kMaxExponent` | Largest supported exponent (`63`). |
 | `twopow::kDefaultExponent` | Default exponent used by the CLI (`2`). |
 
-Full generated reference: **https://OWNER.github.io/twopow/**
+Full generated reference: **https://dalamber.github.io/twopow/**
 
 ## Supported Platforms
 

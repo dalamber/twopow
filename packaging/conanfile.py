@@ -6,8 +6,8 @@ class TwopowConan(ConanFile):
     name = "twopow"
     version = "0.1.0"
     license = "Apache-2.0"
-    author = "Anton Shpakovsky"
-    url = "https://github.com/OWNER/twopow"
+    author = "Anton Shpakovskiy"
+    url = "https://github.com/dalamber/twopow"
     description = "Deterministic base-2 exponentiation for modern C++"
     topics = ("math", "exponentiation", "cpp20", "satire")
     settings = "os", "compiler", "build_type", "arch"

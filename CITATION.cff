@@ -2,9 +2,9 @@ cff-version: 1.2.0
 message: "If you use twopow, please cite it as below."
 title: "twopow: Deterministic base-2 exponentiation for modern C++"
 authors:
-  - family-names: "Shpakovsky"
+  - family-names: "Shpakovskiy"
     given-names: "Anton"
 version: 0.1.0
 date-released: 2026-06-15
 license: Apache-2.0
-repository-code: "https://github.com/OWNER/twopow"
+repository-code: "https://github.com/dalamber/twopow"

@@ -6,7 +6,7 @@ single-function library to the same standard as any production system.
 ## Development setup
 
 ```bash
-git clone https://github.com/OWNER/twopow.git
+git clone https://github.com/dalamber/twopow.git
 cd twopow
 cmake --preset default
 cmake --build --preset default
