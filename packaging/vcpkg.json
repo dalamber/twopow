@@ -1,0 +1,8 @@
+{
+  "name": "twopow",
+  "version": "0.1.0",
+  "description": "Deterministic base-2 exponentiation for modern C++",
+  "homepage": "https://github.com/OWNER/twopow",
+  "license": "Apache-2.0",
+  "supports": "linux | osx | windows"
+}
