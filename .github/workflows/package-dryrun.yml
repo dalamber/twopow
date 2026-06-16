@@ -1,0 +1,113 @@
+name: Package Dry-Run
+
+# Builds every publishable artifact and uploads it for inspection.
+# Pushes to NO registry. Trigger manually from the Actions tab or with
+# `gh workflow run package-dryrun.yml`.
+on:
+  workflow_dispatch:
+
+jobs:
+  java:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Build native and package
+        run: |
+          cd wrappers/java
+          bash build-native.sh
+          mvn -B -DskipTests package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: java-jar
+          path: wrappers/java/target/*.jar
+
+  kotlin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10"
+      - name: Build native and jar
+        run: |
+          cd wrappers/kotlin
+          bash build-native.sh
+          gradle jar --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kotlin-jar
+          path: wrappers/kotlin/build/libs/*.jar
+
+  csharp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Build native FFI and pack
+        run: |
+          cmake -S . -B build -DTWOPOW_BUILD_FFI=ON -DTWOPOW_BUILD_TESTS=OFF -DTWOPOW_BUILD_CLI=OFF
+          cmake --build build --target twopow_ffi
+          mkdir -p wrappers/csharp/Twopow/runtimes/linux-x64/native
+          cp build/libtwopow_ffi.so wrappers/csharp/Twopow/runtimes/linux-x64/native/
+          dotnet pack wrappers/csharp/Twopow/Twopow.csproj -c Release -o nupkgs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: csharp-nupkg
+          path: nupkgs/*.nupkg
+
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Pack
+        run: |
+          cd wrappers/node
+          npm install
+          npm pack
+      - uses: actions/upload-artifact@v4
+        with:
+          name: node-tarball
+          path: wrappers/node/*.tgz
+
+  ruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Build gem
+        run: |
+          cd wrappers/ruby
+          gem build twopow.gemspec
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ruby-gem
+          path: wrappers/ruby/*.gem
+
+  swift-go-buildcheck:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Swift release build (tag-consumed; no artifact)
+        run: swift build -c release
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Go build (tag-consumed; no artifact)
+        env:
+          CGO_ENABLED: "1"
+        run: cd wrappers/go && go build ./...
