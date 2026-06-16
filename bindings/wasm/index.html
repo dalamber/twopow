@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>twopow · WebAssembly demo</title>
+  <style>
+    body { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+           background: #0d1117; color: #e6edf3; display: grid; place-items: center;
+           min-height: 100vh; margin: 0; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+            padding: 32px; width: min(520px, 92vw); }
+    h1 { color: #3fb950; font-size: 22px; margin: 0 0 4px; }
+    p.sub { color: #8b949e; margin: 0 0 24px; }
+    label { display: block; color: #8b949e; font-size: 13px; margin-bottom: 8px; }
+    input { width: 100%; box-sizing: border-box; padding: 10px 12px; font: inherit;
+            background: #0d1117; color: #e6edf3; border: 1px solid #30363d;
+            border-radius: 8px; }
+    .out { margin-top: 20px; font-size: 28px; word-break: break-all; }
+    .err { color: #f85149; font-size: 16px; }
+    .ok { color: #58a6ff; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>twopow</h1>
+    <p class="sub">base-2 exponentiation, compiled to WebAssembly</p>
+    <label for="n">Exponent n (0–63)</label>
+    <input id="n" type="number" min="0" max="63" value="10" inputmode="numeric">
+    <div class="out">2<sup>n</sup> = <span id="result" class="ok">…</span></div>
+    <div id="error" class="err"></div>
+  </div>
+
+  <script src="dist/twopow.js"></script>
+  <script>
+    createTwopow().then((mod) => {
+      const input = document.getElementById('n');
+      const result = document.getElementById('result');
+      const error = document.getElementById('error');
+      function compute() {
+        error.textContent = '';
+        try {
+          result.textContent = mod.twoPow(parseInt(input.value, 10) >>> 0);
+        } catch (e) {
+          result.textContent = '—';
+          error.textContent = 'Exponent out of range (max ' + mod.MAX_EXPONENT + ').';
+        }
+      }
+      input.addEventListener('input', compute);
+      compute();
+    });
+  </script>
+</body>
+</html>

@@ -11,13 +11,23 @@ constexpr int kExitSuccess = 0;
 constexpr int kExitUsage = 2;
 constexpr int kExitOverflow = 1;
 
+constexpr const char* kLogo =
+    "   _                                          ___\n"
+    "  | |___      _____  _ __   _____      __    |_  )\n"
+    "  | __\\ \\ /\\ / / _ \\| '_ \\ / _ \\ \\ /\\ / /     / /\n"
+    "  | |_ \\ V  V / (_) | |_) | (_) \\ V  V /     /___|\n"
+    "   \\__| \\_/\\_/ \\___/| .__/ \\___/ \\_/\\_/     base-2, forever\n"
+    "                    |_|\n"
+    "        deterministic base-2 exponentiation  -  2^n = 1 << n\n";
+
 void print_usage(std::ostream& os) {
     os << "Usage: twopow-cli [EXPONENT]\n"
        << "Compute 2 raised to EXPONENT (default " << twopow::kDefaultExponent
        << ").\n\n"
        << "Options:\n"
        << "  -h, --help     Show this help and exit.\n"
-       << "  -v, --version  Show version information and exit.\n";
+       << "  -v, --version  Show version information and exit.\n"
+       << "      --logo     Print the project logo and exit.\n";
 }
 
 }  // namespace
@@ -31,6 +41,10 @@ int main(int argc, char** argv) {
     }
     if (arg == "-v" || arg == "--version") {
         std::cout << "twopow-cli " << TWOPOW_VERSION << "\n";
+        return kExitSuccess;
+    }
+    if (arg == "--logo") {
+        std::cout << kLogo;
         return kExitSuccess;
     }
 
