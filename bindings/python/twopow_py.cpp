@@ -16,5 +16,5 @@ PYBIND11_MODULE(pytwopow, m) {
 
     m.attr("MAX_EXPONENT") = twopow::kMaxExponent;
     m.attr("DEFAULT_EXPONENT") = twopow::kDefaultExponent;
-    m.attr("__version__") = "0.1.0";
+    m.attr("__version__") = "0.2.0";
 }

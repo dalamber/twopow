@@ -1,5 +1,5 @@
 PROJECT_NAME           = "twopow"
-PROJECT_NUMBER         = 0.1.0
+PROJECT_NUMBER         = 0.2.0
 PROJECT_BRIEF          = "Deterministic base-2 exponentiation for modern C++"
 OUTPUT_DIRECTORY       = doxygen
 INPUT                  = ../include index.md

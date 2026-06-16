@@ -4,5 +4,5 @@ require 'twopow_ext'
 #
 # The native extension defines Twopow.two_pow and Twopow::MAX_EXPONENT.
 module Twopow
-  VERSION = '0.1.0'.freeze
+  VERSION = '0.2.0'.freeze
 end

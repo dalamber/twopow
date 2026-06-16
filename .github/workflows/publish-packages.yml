@@ -94,7 +94,7 @@ jobs:
         run: |
           cd wrappers/ruby
           gem build twopow.gemspec
-          gem push --host "https://rubygems.pkg.github.com/dalamber" twopow-0.1.0.gem
+          gem push --host "https://rubygems.pkg.github.com/dalamber" twopow-0.2.0.gem
         env:
           GEM_HOST_API_KEY: "Bearer ${{ secrets.GITHUB_TOKEN }}"
 

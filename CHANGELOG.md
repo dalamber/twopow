@@ -6,6 +6,20 @@ adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-16
+
+### Added
+- Seven publishable SDK wrappers under `wrappers/`: Java, Kotlin, Swift, C#,
+  Go, Node.js, and Ruby — each with its own CI workflow and publish-on-tag step.
+- In-tree bindings: C API, Python (pybind11), and WebAssembly (Emscripten).
+- `twopow-service`: an HTTP "Exponentiation-as-a-Service" with OpenAPI + Swagger UI.
+- `twopow-cli --logo`.
+- Fuzzing (libFuzzer), sanitizer matrix (ASan/UBSan/TSan), and static analysis
+  (cppcheck, scan-build).
+- `PROOF.md` (formal proof of correctness), `SPEC.md` (RFC-2119 specification),
+  `BRANDING.md`, and README translations (es, de, zh, ja).
+- Benchmark baselines (`std::pow`, naive loop) and README charts.
+
 ## [0.1.0] - 2026-06-15
 
 ### Added

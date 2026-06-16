@@ -62,7 +62,7 @@ const char* kOpenApi = R"YAML(openapi: 3.0.3
 info:
   title: twopow Exponentiation-as-a-Service
   description: Deterministic base-2 exponentiation over HTTP.
-  version: 0.1.0
+  version: 0.2.0
   license:
     name: Apache-2.0
 servers:

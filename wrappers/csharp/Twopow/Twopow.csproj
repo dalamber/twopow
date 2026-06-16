@@ -5,7 +5,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Dalamber.Twopow</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>Anton Shpakovskiy</Authors>
     <Description>Deterministic base-2 exponentiation (P/Invoke binding).</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>

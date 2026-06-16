@@ -4,7 +4,7 @@ from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 
 class TwopowConan(ConanFile):
     name = "twopow"
-    version = "0.1.0"
+    version = "0.2.0"
     license = "Apache-2.0"
     author = "Anton Shpakovskiy"
     url = "https://github.com/dalamber/twopow"

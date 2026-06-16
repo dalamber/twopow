@@ -104,7 +104,7 @@ as the exponent grows:
 include(FetchContent)
 FetchContent_Declare(twopow
     GIT_REPOSITORY https://github.com/dalamber/twopow.git
-    GIT_TAG v0.1.0)
+    GIT_TAG v0.2.0)
 FetchContent_MakeAvailable(twopow)
 target_link_libraries(your_target PRIVATE twopow::twopow)
 ```
@@ -112,7 +112,7 @@ target_link_libraries(your_target PRIVATE twopow::twopow)
 ### Conan
 
 ```bash
-conan install --requires=twopow/0.1.0
+conan install --requires=twopow/0.2.0
 ```
 
 ### vcpkg

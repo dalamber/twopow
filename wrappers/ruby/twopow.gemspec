@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'twopow'
-  s.version     = '0.1.0'
+  s.version     = '0.2.0'
   s.summary     = 'Deterministic base-2 exponentiation (native extension).'
   s.description = 'A Ruby binding for the twopow C++ core: 2**n for n in [0, 63].'
   s.authors     = ['Anton Shpakovskiy']

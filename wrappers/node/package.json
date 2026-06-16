@@ -1,6 +1,6 @@
 {
   "name": "@dalamber/twopow",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deterministic base-2 exponentiation (native N-API addon).",
   "license": "Apache-2.0",
   "main": "index.js",

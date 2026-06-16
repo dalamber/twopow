@@ -10,7 +10,7 @@ repositories {
     maven("https://maven.pkg.github.com/dalamber/twopow")
 }
 dependencies {
-    implementation("io.github.dalamber:twopow-kotlin:0.1.0")
+    implementation("io.github.dalamber:twopow-kotlin:0.2.0")
 }
 ```
 

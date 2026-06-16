@@ -4,7 +4,7 @@ title: "twopow: Deterministic base-2 exponentiation for modern C++"
 authors:
   - family-names: "Shpakovskiy"
     given-names: "Anton"
-version: 0.1.0
-date-released: 2026-06-15
+version: 0.2.0
+date-released: 2026-06-16
 license: Apache-2.0
 repository-code: "https://github.com/dalamber/twopow"
