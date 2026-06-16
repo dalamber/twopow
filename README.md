@@ -1,5 +1,15 @@
 # twopow
 
+```text
+   _                                          ___
+  | |___      _____  _ __   _____      __    |_  )
+  | __\ \ /\ / / _ \| '_ \ / _ \ \ /\ / /     / /
+  | |_ \ V  V / (_) | |_) | (_) \ V  V /     /___|
+   \__| \_/\_/ \___/| .__/ \___/ \_/\_/     base-2, forever
+                    |_|
+        deterministic base-2 exponentiation  ·  2ⁿ = 1 << n
+```
+
 **English** · [Español](README.es.md) · [Deutsch](README.de.md) · [中文](README.zh-CN.md) · [日本語](README.ja.md)
 
 [![CI](https://github.com/dalamber/twopow/actions/workflows/ci.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/ci.yml)
