@@ -36,3 +36,19 @@ coverage.xml
 
 # Editor/LSP caches
 .cache/
+
+# Language wrapper build artifacts
+wrappers/**/build/
+wrappers/**/native/build/
+wrappers/**/target/
+wrappers/**/.gradle/
+wrappers/**/dist/
+wrappers/**/bin/
+wrappers/**/obj/
+wrappers/java/src/main/resources/native/
+wrappers/kotlin/src/main/resources/native/
+node_modules/
+
+# SwiftPM
+.build/
+.swiftpm/
