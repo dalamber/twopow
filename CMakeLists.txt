@@ -39,6 +39,10 @@ target_include_directories(twopow PUBLIC
 
 target_compile_features(twopow PUBLIC cxx_std_20)
 
+# Allow the static library to be linked into shared objects (Python/WASM
+# bindings, plugins) on platforms where PIC is not the default (e.g. Linux).
+set_target_properties(twopow PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
 if(TWOPOW_ENABLE_COVERAGE)
     target_compile_options(twopow PUBLIC --coverage -O0 -g)
     target_link_options(twopow PUBLIC --coverage)
