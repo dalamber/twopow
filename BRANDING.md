@@ -38,8 +38,8 @@ The following are prohibited:
 - ❌ Rendering the wordmark in any base other than 2.
 - ❌ Skewing, rotating, or applying perspective to the logo such that `1 << n`
   could be misread as `1 >> n`.
-- ❌ Implying, through layout or proximity, support for base 3. (See
-  `docs/adr/0002-rejecting-base-3.md`.)
+- ❌ Implying, through layout or proximity, support for base 3. (The Base
+  **SHALL** be 2; see [`SPEC.md`](SPEC.md) §3.4.)
 - ❌ Recoloring Shift Green to any hue that connotes failure.
 - ❌ Using the logo to endorse arithmetic the library does not perform.
 

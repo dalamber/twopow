@@ -14,13 +14,20 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
 endif()
 
+if(TWOPOW_SANITIZER)
+    add_compile_options(-fsanitize=${TWOPOW_SANITIZER} -fno-omit-frame-pointer -g)
+    add_link_options(-fsanitize=${TWOPOW_SANITIZER})
+endif()
+
 option(TWOPOW_BUILD_CLI "Build the twopow-cli application" ON)
 option(TWOPOW_BUILD_TESTS "Build the test suite" ON)
 option(TWOPOW_BUILD_BENCHMARKS "Build the benchmark suite" OFF)
 option(TWOPOW_BUILD_C_API "Build the C API binding" OFF)
 option(TWOPOW_BUILD_PYTHON "Build the Python binding" OFF)
 option(TWOPOW_BUILD_SERVICE "Build the HTTP service" OFF)
+option(TWOPOW_BUILD_FUZZERS "Build fuzz targets (requires Clang + libFuzzer)" OFF)
 option(TWOPOW_ENABLE_COVERAGE "Enable coverage instrumentation" OFF)
+set(TWOPOW_SANITIZER "" CACHE STRING "Enable a sanitizer: address, undefined, or thread")
 
 # --- Library target -------------------------------------------------------
 add_library(twopow src/twopow.cpp)
@@ -64,6 +71,10 @@ endif()
 
 if(TWOPOW_BUILD_SERVICE)
     add_subdirectory(service)
+endif()
+
+if(TWOPOW_BUILD_FUZZERS)
+    add_subdirectory(fuzz)
 endif()
 
 # --- Install / export -----------------------------------------------------

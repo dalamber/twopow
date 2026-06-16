@@ -12,6 +12,11 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Code style: clang-format](https://img.shields.io/badge/code%20style-clang--format-1f425f.svg)](.clang-format)
+[![Sanitizers](https://github.com/dalamber/twopow/actions/workflows/sanitizers.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/sanitizers.yml)
+[![Fuzz](https://github.com/dalamber/twopow/actions/workflows/fuzz.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/fuzz.yml)
+[![Static Analysis](https://github.com/dalamber/twopow/actions/workflows/analysis.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/analysis.yml)
+[![Bindings](https://github.com/dalamber/twopow/actions/workflows/bindings.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/bindings.yml)
+[![Service](https://github.com/dalamber/twopow/actions/workflows/service.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/service.yml)
 
 > Deterministic, high-performance base-2 exponentiation for modern C++.
 
@@ -123,6 +128,26 @@ int main() {
 }
 ```
 
+## Bindings
+
+`twopow` is available beyond C++ — see [`bindings/`](bindings/README.md):
+
+- **C API** — C-linkage wrapper with status codes (`-DTWOPOW_BUILD_C_API=ON`).
+- **Python** — a pybind11 module, `import pytwopow` (`-DTWOPOW_BUILD_PYTHON=ON`).
+- **WebAssembly** — an Emscripten/embind build with an interactive browser demo.
+
+## Exponentiation-as-a-Service
+
+A production-grade HTTP surface for `two_pow`, with an OpenAPI spec and Swagger
+UI — see [`service/`](service/README.md):
+
+```bash
+docker build -f service/Dockerfile -t twopow-service .
+docker run --rm -p 8080:8080 twopow-service
+curl -s localhost:8080/v1/pow/10
+# {"base":2,"exponent":10,"result":"1024","result_uint64":1024}
+```
+
 ## API Reference
 
 | Symbol | Description |
@@ -175,6 +200,14 @@ pie showData
     "Library scaffolding & API" : 58
     "Actual computation (1 << n)" : 1
 ```
+
+## Further reading
+
+- [`SPEC.md`](SPEC.md) — the normative, RFC-2119 specification.
+- [`PROOF.md`](PROOF.md) — a formal proof of correctness.
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) — system architecture.
+- [`BRANDING.md`](BRANDING.md) — brand guidelines.
+- [`bindings/`](bindings/README.md) · [`service/`](service/README.md) — language bindings and the HTTP service.
 
 ## Contributing
 

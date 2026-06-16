@@ -1,0 +1,29 @@
+name: Service
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DTWOPOW_BUILD_SERVICE=ON -DTWOPOW_BUILD_TESTS=OFF -DTWOPOW_BUILD_CLI=OFF
+      - name: Build
+        run: cmake --build build --target twopow-service
+      - name: Smoke test
+        run: |
+          ./build/service/twopow-service 8080 &
+          SVC=$!
+          sleep 2
+          set -e
+          test "$(curl -s localhost:8080/v1/pow/10 | grep -o '"result":"1024"')" = '"result":"1024"'
+          test "$(curl -s -o /dev/null -w '%{http_code}' localhost:8080/healthz)" = "200"
+          test "$(curl -s -o /dev/null -w '%{http_code}' localhost:8080/v1/pow/64)" = "422"
+          test "$(curl -s -o /dev/null -w '%{http_code}' 'localhost:8080/v1/pow?n=zzz')" = "400"
+          kill $SVC
+          echo "service smoke test OK"

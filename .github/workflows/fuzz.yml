@@ -1,0 +1,24 @@
+name: Fuzz
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 4 * * *"
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    env:
+      CC: clang
+      CXX: clang++
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DTWOPOW_BUILD_FUZZERS=ON -DTWOPOW_BUILD_TESTS=OFF -DTWOPOW_BUILD_CLI=OFF
+      - name: Build fuzzer
+        run: cmake --build build --target twopow_fuzz
+      - name: Run fuzzer
+        run: ./build/fuzz/twopow_fuzz -max_total_time=60 -print_final_stats=1

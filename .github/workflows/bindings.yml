@@ -1,0 +1,61 @@
+name: Bindings
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  c-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DTWOPOW_BUILD_C_API=ON
+      - name: Build
+        run: cmake --build build
+      - name: Test
+        run: ctest --test-dir build -R twopow_c_api --output-on-failure
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Configure
+        run: cmake -S . -B build -DTWOPOW_BUILD_PYTHON=ON -DTWOPOW_BUILD_TESTS=OFF -DTWOPOW_BUILD_CLI=OFF
+      - name: Build
+        run: cmake --build build
+      - name: Import smoke test
+        run: |
+          python - <<'PY'
+          import glob, importlib.util
+          so = glob.glob('build/bindings/python/pytwopow*.so')[0]
+          spec = importlib.util.spec_from_file_location('pytwopow', so)
+          m = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(m)
+          assert m.two_pow(10) == 1024, m.two_pow(10)
+          assert m.MAX_EXPONENT == 63
+          try:
+              m.two_pow(64)
+              raise SystemExit('expected OverflowError')
+          except OverflowError:
+              pass
+          print('python binding OK')
+          PY
+
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mymindstorm/setup-emsdk@v14
+      - name: Build WASM module
+        run: bash bindings/wasm/build.sh
+      - name: Verify artifacts
+        run: |
+          test -f bindings/wasm/dist/twopow.js
+          test -f bindings/wasm/dist/twopow.wasm
+          echo "wasm build OK"
