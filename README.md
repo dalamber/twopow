@@ -1,5 +1,7 @@
 # twopow
 
+**English** · [Español](README.es.md) · [Deutsch](README.de.md) · [中文](README.zh-CN.md) · [日本語](README.ja.md)
+
 [![CI](https://github.com/dalamber/twopow/actions/workflows/ci.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/ci.yml)
 [![Lint](https://github.com/dalamber/twopow/actions/workflows/lint.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/lint.yml)
 [![CodeQL](https://github.com/dalamber/twopow/actions/workflows/codeql.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/codeql.yml)
