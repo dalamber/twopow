@@ -21,7 +21,6 @@ CAPI_H="$root/bindings/c/include/twopow/twopow_c.h"
 DESTS=(
   "$root/wrappers/java/native/vendor"
   "$root/wrappers/kotlin/native/vendor"
-  "$root/wrappers/go/twopow/vendor"
   "$root/wrappers/node/native/vendor"
   "$root/wrappers/ruby/ext/twopow/vendor"
 )
@@ -35,4 +34,14 @@ for dest in "${DESTS[@]}"; do
   echo "vendored core -> ${dest#"$root"/}"
 done
 
-echo "Done. Vendored core into ${#DESTS[@]} wrapper(s)."
+# Go: cgo only compiles sources in the package directory itself, so the .cpp
+# files live alongside the Go source and headers go in a vendor/ include dir.
+go_pkg="$root/wrappers/go/twopow"
+mkdir -p "$go_pkg/vendor/twopow"
+cp "$CORE_CPP" "$go_pkg/csrc_twopow.cpp"
+cp "$CAPI_CPP" "$go_pkg/csrc_twopow_c.cpp"
+cp "$CORE_HPP" "$go_pkg/vendor/twopow/twopow.hpp"
+cp "$CAPI_H" "$go_pkg/vendor/twopow/twopow_c.h"
+echo "vendored core -> wrappers/go/twopow (cgo layout)"
+
+echo "Done. Vendored core into $((${#DESTS[@]} + 1)) wrapper(s)."
