@@ -22,7 +22,6 @@ DESTS=(
   "$root/wrappers/java/native/vendor"
   "$root/wrappers/kotlin/native/vendor"
   "$root/wrappers/node/native/vendor"
-  "$root/wrappers/ruby/ext/twopow/vendor"
 )
 
 for dest in "${DESTS[@]}"; do
@@ -34,14 +33,15 @@ for dest in "${DESTS[@]}"; do
   echo "vendored core -> ${dest#"$root"/}"
 done
 
-# Go: cgo only compiles sources in the package directory itself, so the .cpp
-# files live alongside the Go source and headers go in a vendor/ include dir.
-go_pkg="$root/wrappers/go/twopow"
-mkdir -p "$go_pkg/vendor/twopow"
-cp "$CORE_CPP" "$go_pkg/csrc_twopow.cpp"
-cp "$CAPI_CPP" "$go_pkg/csrc_twopow_c.cpp"
-cp "$CORE_HPP" "$go_pkg/vendor/twopow/twopow.hpp"
-cp "$CAPI_H" "$go_pkg/vendor/twopow/twopow_c.h"
-echo "vendored core -> wrappers/go/twopow (cgo layout)"
+# Go and Ruby compile only sources in the package/ext directory itself, so the
+# .cpp files live alongside the wrapper source and headers go in vendor/.
+for pkg in "$root/wrappers/go/twopow" "$root/wrappers/ruby/ext/twopow"; do
+  mkdir -p "$pkg/vendor/twopow"
+  cp "$CORE_CPP" "$pkg/csrc_twopow.cpp"
+  cp "$CAPI_CPP" "$pkg/csrc_twopow_c.cpp"
+  cp "$CORE_HPP" "$pkg/vendor/twopow/twopow.hpp"
+  cp "$CAPI_H" "$pkg/vendor/twopow/twopow_c.h"
+  echo "vendored core -> ${pkg#"$root"/} (in-dir layout)"
+done
 
-echo "Done. Vendored core into $((${#DESTS[@]} + 1)) wrapper(s)."
+echo "Done. Vendored core into $((${#DESTS[@]} + 2)) wrapper(s)."
