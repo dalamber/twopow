@@ -57,3 +57,4 @@ node_modules/
 *.bundle
 wrappers/ruby/ext/**/Makefile
 wrappers/ruby/ext/**/mkmf.log
+wrappers/node/package-lock.json

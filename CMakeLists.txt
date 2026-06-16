@@ -25,6 +25,7 @@ option(TWOPOW_BUILD_BENCHMARKS "Build the benchmark suite" OFF)
 option(TWOPOW_BUILD_C_API "Build the C API binding" OFF)
 option(TWOPOW_BUILD_PYTHON "Build the Python binding" OFF)
 option(TWOPOW_BUILD_SERVICE "Build the HTTP service" OFF)
+option(TWOPOW_BUILD_FFI "Build the shared FFI library for language wrappers" OFF)
 option(TWOPOW_BUILD_FUZZERS "Build fuzz targets (requires Clang + libFuzzer)" OFF)
 option(TWOPOW_ENABLE_COVERAGE "Enable coverage instrumentation" OFF)
 set(TWOPOW_SANITIZER "" CACHE STRING "Enable a sanitizer: address, undefined, or thread")
@@ -79,6 +80,23 @@ endif()
 
 if(TWOPOW_BUILD_FUZZERS)
     add_subdirectory(fuzz)
+endif()
+
+if(TWOPOW_BUILD_FFI)
+    # A single shared library bundling the core and the C ABI, for FFI consumers
+    # (C#/.NET P/Invoke, Ruby FFI, etc.).
+    add_library(twopow_ffi SHARED src/twopow.cpp bindings/c/twopow_c.cpp)
+    add_library(twopow::ffi ALIAS twopow_ffi)
+    target_include_directories(twopow_ffi PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/bindings/c/include>")
+    set_target_properties(twopow_ffi PROPERTIES
+        C_VISIBILITY_PRESET default
+        CXX_VISIBILITY_PRESET default
+        OUTPUT_NAME twopow_ffi)
+    install(TARGETS twopow_ffi
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
 # --- Install / export -----------------------------------------------------
