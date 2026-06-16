@@ -1,0 +1,100 @@
+name: Wrappers
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  java:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Build native and test
+        run: |
+          cd wrappers/java
+          bash build-native.sh
+          mvn -B test
+
+  kotlin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10"
+      - name: Build native and test
+        run: |
+          cd wrappers/kotlin
+          bash build-native.sh
+          gradle test --no-daemon
+
+  swift:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Test
+        run: swift test
+
+  csharp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Build native FFI library
+        run: |
+          cmake -S . -B build -DTWOPOW_BUILD_FFI=ON -DTWOPOW_BUILD_TESTS=OFF -DTWOPOW_BUILD_CLI=OFF
+          cmake --build build --target twopow_ffi
+      - name: Test
+        run: |
+          export LD_LIBRARY_PATH="$PWD/build:${LD_LIBRARY_PATH:-}"
+          cd wrappers/csharp
+          dotnet test
+
+  go:
+    runs-on: ubuntu-latest
+    env:
+      CGO_ENABLED: "1"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Test
+        run: cd wrappers/go && go test ./...
+
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Build and test
+        run: cd wrappers/node && npm install && npm test
+
+  ruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Build extension and test
+        run: |
+          cd wrappers/ruby/ext/twopow
+          ruby extconf.rb
+          make
+          cd ../..
+          ruby -I lib -I ext/twopow test/test_twopow.rb
