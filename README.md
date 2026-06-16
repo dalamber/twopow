@@ -27,7 +27,6 @@
 [![Static Analysis](https://github.com/dalamber/twopow/actions/workflows/analysis.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/analysis.yml)
 [![Bindings](https://github.com/dalamber/twopow/actions/workflows/bindings.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/bindings.yml)
 [![Service](https://github.com/dalamber/twopow/actions/workflows/service.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/service.yml)
-[![Wrappers](https://github.com/dalamber/twopow/actions/workflows/wrappers.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/wrappers.yml)
 
 > Deterministic, high-performance base-2 exponentiation for modern C++.
 
@@ -152,15 +151,15 @@ int main() {
 `twopow` ships as real, publishable SDKs in seven languages — each wrapping the
 same C core, each with its own tests in CI. See [`wrappers/`](wrappers/).
 
-| Language | Package | Registry | Module |
-|----------|---------|----------|--------|
-| Java | `io.github.dalamber:twopow` | GitHub Packages (Maven) | [`wrappers/java`](wrappers/java/README.md) |
-| Kotlin | `io.github.dalamber:twopow-kotlin` | GitHub Packages (Maven) | [`wrappers/kotlin`](wrappers/kotlin/README.md) |
-| C#/.NET | `Dalamber.Twopow` | GitHub Packages (NuGet) | [`wrappers/csharp`](wrappers/csharp/README.md) |
-| Node.js | `@dalamber/twopow` | GitHub Packages (npm) | [`wrappers/node`](wrappers/node/README.md) |
-| Ruby | `twopow` | GitHub Packages (RubyGems) | [`wrappers/ruby`](wrappers/ruby/README.md) |
-| Swift | `Twopow` (SwiftPM) | Git tag | [`wrappers/swift`](wrappers/swift/README.md) |
-| Go | `…/wrappers/go/twopow` | Git tag (module) | [`wrappers/go`](wrappers/go/README.md) |
+| Language | Package | Registry | Module | CI |
+|----------|---------|----------|--------|----|
+| Java | `io.github.dalamber:twopow` | GitHub Packages (Maven) | [`wrappers/java`](wrappers/java/README.md) | [![Java](https://github.com/dalamber/twopow/actions/workflows/wrapper-java.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/wrapper-java.yml) |
+| Kotlin | `io.github.dalamber:twopow-kotlin` | GitHub Packages (Maven) | [`wrappers/kotlin`](wrappers/kotlin/README.md) | [![Kotlin](https://github.com/dalamber/twopow/actions/workflows/wrapper-kotlin.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/wrapper-kotlin.yml) |
+| C#/.NET | `Dalamber.Twopow` | GitHub Packages (NuGet) | [`wrappers/csharp`](wrappers/csharp/README.md) | [![C Sharp](https://github.com/dalamber/twopow/actions/workflows/wrapper-csharp.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/wrapper-csharp.yml) |
+| Node.js | `@dalamber/twopow` | GitHub Packages (npm) | [`wrappers/node`](wrappers/node/README.md) | [![Node](https://github.com/dalamber/twopow/actions/workflows/wrapper-node.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/wrapper-node.yml) |
+| Ruby | `twopow` | GitHub Packages (RubyGems) | [`wrappers/ruby`](wrappers/ruby/README.md) | [![Ruby](https://github.com/dalamber/twopow/actions/workflows/wrapper-ruby.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/wrapper-ruby.yml) |
+| Swift | `Twopow` (SwiftPM) | Git tag | [`wrappers/swift`](wrappers/swift/README.md) | [![Swift](https://github.com/dalamber/twopow/actions/workflows/wrapper-swift.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/wrapper-swift.yml) |
+| Go | `…/wrappers/go/twopow` | Git tag (module) | [`wrappers/go`](wrappers/go/README.md) | [![Go](https://github.com/dalamber/twopow/actions/workflows/wrapper-go.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/wrapper-go.yml) |
 
 Each is published on a version tag by the
 [Publish Packages](.github/workflows/publish-packages.yml) workflow (GitHub

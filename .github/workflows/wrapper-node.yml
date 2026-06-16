@@ -1,0 +1,20 @@
+name: Node
+
+on:
+  push:
+    branches: [main]
+    paths: ["wrappers/node/**", "src/**", "include/**", "bindings/c/**", ".github/workflows/wrapper-node.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["wrappers/node/**", "src/**", "include/**", "bindings/c/**", ".github/workflows/wrapper-node.yml"]
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Build and test
+        run: cd wrappers/node && npm install && npm test

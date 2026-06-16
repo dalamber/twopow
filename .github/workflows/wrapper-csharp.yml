@@ -1,0 +1,28 @@
+name: C Sharp
+
+on:
+  push:
+    branches: [main]
+    paths: ["wrappers/csharp/**", "src/**", "include/**", "bindings/c/**", "CMakeLists.txt", ".github/workflows/wrapper-csharp.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["wrappers/csharp/**", "src/**", "include/**", "bindings/c/**", "CMakeLists.txt", ".github/workflows/wrapper-csharp.yml"]
+
+jobs:
+  csharp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Build native FFI library
+        run: |
+          cmake -S . -B build -DTWOPOW_BUILD_FFI=ON -DTWOPOW_BUILD_TESTS=OFF -DTWOPOW_BUILD_CLI=OFF
+          cmake --build build --target twopow_ffi
+      - name: Test
+        run: |
+          proj=wrappers/csharp/Twopow.Tests/Twopow.Tests.csproj
+          dotnet build "$proj" -c Release
+          cp build/libtwopow_ffi.so wrappers/csharp/Twopow.Tests/bin/Release/net8.0/
+          dotnet test "$proj" -c Release --no-build

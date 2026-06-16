@@ -1,0 +1,17 @@
+name: Swift
+
+on:
+  push:
+    branches: [main]
+    paths: ["wrappers/swift/**", "Package.swift", "src/**", "include/**", "bindings/c/**", ".github/workflows/wrapper-swift.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["wrappers/swift/**", "Package.swift", "src/**", "include/**", "bindings/c/**", ".github/workflows/wrapper-swift.yml"]
+
+jobs:
+  swift:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Test
+        run: swift test

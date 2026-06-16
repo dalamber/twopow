@@ -1,0 +1,24 @@
+name: Java
+
+on:
+  push:
+    branches: [main]
+    paths: ["wrappers/java/**", "src/**", "include/**", "bindings/c/**", ".github/workflows/wrapper-java.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["wrappers/java/**", "src/**", "include/**", "bindings/c/**", ".github/workflows/wrapper-java.yml"]
+
+jobs:
+  java:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Build native and test
+        run: |
+          cd wrappers/java
+          bash build-native.sh
+          mvn -B test

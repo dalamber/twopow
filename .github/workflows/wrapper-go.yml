@@ -1,0 +1,22 @@
+name: Go
+
+on:
+  push:
+    branches: [main]
+    paths: ["wrappers/go/**", "src/**", "include/**", "bindings/c/**", ".github/workflows/wrapper-go.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["wrappers/go/**", "src/**", "include/**", "bindings/c/**", ".github/workflows/wrapper-go.yml"]
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    env:
+      CGO_ENABLED: "1"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Test
+        run: cd wrappers/go && go test ./...
