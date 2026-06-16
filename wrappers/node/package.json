@@ -1,0 +1,27 @@
+{
+  "name": "@dalamber/twopow",
+  "version": "0.1.0",
+  "description": "Deterministic base-2 exponentiation (native N-API addon).",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "gypfile": true,
+  "files": [
+    "index.js",
+    "binding.gyp",
+    "native/"
+  ],
+  "scripts": {
+    "install": "node-gyp rebuild",
+    "test": "node test/test.js"
+  },
+  "devDependencies": {
+    "node-gyp": "^10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dalamber/twopow.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}
