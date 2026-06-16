@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 240" width="700" height="240" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <title>twopow-cli demo</title>
+  <!-- window -->
+  <rect x="1" y="1" width="698" height="238" rx="12" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+  <!-- title bar -->
+  <path d="M1 13 a12 12 0 0 1 12 -12 h674 a12 12 0 0 1 12 12 v27 h-698 z" fill="#161b22"/>
+  <circle cx="26" cy="20" r="6" fill="#ff5f56"/>
+  <circle cx="48" cy="20" r="6" fill="#ffbd2e"/>
+  <circle cx="70" cy="20" r="6" fill="#27c93f"/>
+  <text x="350" y="25" text-anchor="middle" font-size="14" fill="#8b949e">twopow-cli — zsh</text>
+
+  <!-- command line -->
+  <text x="24" y="100" font-size="20" fill="#3fb950">$</text>
+  <!-- typed command, revealed by an expanding clip to mimic typing -->
+  <clipPath id="typeClip">
+    <rect x="44" y="80" height="28" width="0">
+      <animate attributeName="width" dur="6s" repeatCount="indefinite"
+               values="0;0;168;168;0" keyTimes="0;0.083;0.34;0.95;1"
+               calcMode="linear"/>
+    </rect>
+  </clipPath>
+  <g clip-path="url(#typeClip)">
+    <text x="48" y="100" font-size="20" fill="#c9d1d9">twopow-cli 10</text>
+  </g>
+  <!-- typing cursor: tracks the reveal edge, then blinks -->
+  <rect y="82" width="10" height="24" fill="#58a6ff">
+    <animate attributeName="x" dur="6s" repeatCount="indefinite"
+             values="48;48;216;216;48" keyTimes="0;0.083;0.34;0.95;1" calcMode="linear"/>
+    <animate attributeName="opacity" dur="1s" repeatCount="indefinite"
+             values="1;1;0;0;1" keyTimes="0;0.49;0.5;0.99;1"/>
+  </rect>
+
+  <!-- output -->
+  <text x="24" y="140" font-size="20" fill="#e6edf3" opacity="0">1024
+    <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+             values="0;0;0;1;1;0" keyTimes="0;0.083;0.39;0.41;0.95;1"/>
+  </text>
+
+  <!-- next prompt -->
+  <g opacity="0">
+    <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+             values="0;0;0;1;1;0" keyTimes="0;0.083;0.45;0.47;0.95;1"/>
+    <text x="24" y="180" font-size="20" fill="#3fb950">$</text>
+    <rect x="48" y="162" width="10" height="24" fill="#58a6ff">
+      <animate attributeName="opacity" dur="1s" repeatCount="indefinite"
+               values="1;1;0;0;1" keyTimes="0;0.49;0.5;0.99;1"/>
+    </rect>
+  </g>
+
+  <!-- deadpan caption -->
+  <text x="676" y="225" text-anchor="end" font-size="12" fill="#484f58">2&#8311; = 1024 · computed deterministically</text>
+</svg>

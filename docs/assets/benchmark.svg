@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" width="720" height="400" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <title>twopow vs naive loop — time per call</title>
+  <rect x="0" y="0" width="720" height="400" rx="10" fill="#0d1117"/>
+  <text x="360" y="30" text-anchor="middle" font-size="17" fill="#e6edf3">Time per call (ns) — lower is better</text>
+  <text x="360" y="48" text-anchor="middle" font-size="12" fill="#8b949e">twopow stays O(1); the naive doubling loop is O(n)</text>
+
+  <!-- gridlines + y labels (0..18 ns) -->
+  <g stroke="#21262d" stroke-width="1" fill="#6e7681" font-size="11">
+    <line x1="64" y1="330.0" x2="700" y2="330.0"/><text x="56" y="334" text-anchor="end">0</text>
+    <line x1="64" y1="284.3" x2="700" y2="284.3"/><text x="56" y="288" text-anchor="end">3</text>
+    <line x1="64" y1="238.7" x2="700" y2="238.7"/><text x="56" y="242" text-anchor="end">6</text>
+    <line x1="64" y1="193.0" x2="700" y2="193.0"/><text x="56" y="197" text-anchor="end">9</text>
+    <line x1="64" y1="147.3" x2="700" y2="147.3"/><text x="56" y="151" text-anchor="end">12</text>
+    <line x1="64" y1="101.7" x2="700" y2="101.7"/><text x="56" y="105" text-anchor="end">15</text>
+    <line x1="64" y1="56.0"  x2="700" y2="56.0"/><text x="56" y="60"  text-anchor="end">18</text>
+  </g>
+
+  <!-- legend -->
+  <rect x="470" y="64" width="12" height="12" fill="#3fb950"/><text x="488" y="74" font-size="12" fill="#c9d1d9">twopow</text>
+  <rect x="560" y="64" width="12" height="12" fill="#f85149"/><text x="578" y="74" font-size="12" fill="#c9d1d9">naive loop</text>
+
+  <!-- bars -->
+  <g font-size="11" fill="#8b949e" text-anchor="middle">
+    <!-- n=0 -->
+    <rect x="99.5"  y="316.1" width="40" height="13.9"  fill="#3fb950"/><text x="119.5" y="312">0.91</text>
+    <rect x="147.5" y="326.2" width="40" height="3.8"   fill="#f85149"/><text x="167.5" y="322">0.25</text>
+    <!-- n=2 -->
+    <rect x="258.5" y="316.1" width="40" height="13.9"  fill="#3fb950"/><text x="278.5" y="312">0.91</text>
+    <rect x="306.5" y="322.4" width="40" height="7.6"   fill="#f85149"/><text x="326.5" y="318">0.50</text>
+    <!-- n=32 -->
+    <rect x="417.5" y="316.3" width="40" height="13.7"  fill="#3fb950"/><text x="437.5" y="312">0.90</text>
+    <rect x="465.5" y="188.9" width="40" height="141.1" fill="#f85149"/><text x="485.5" y="184">9.27</text>
+    <!-- n=63 -->
+    <rect x="576.5" y="315.7" width="40" height="14.3"  fill="#3fb950"/><text x="596.5" y="312">0.94</text>
+    <rect x="624.5" y="78.8"  width="40" height="251.2" fill="#f85149"/><text x="644.5" y="74">16.5</text>
+  </g>
+
+  <!-- baseline + x labels -->
+  <line x1="64" y1="330" x2="700" y2="330" stroke="#484f58" stroke-width="1.5"/>
+  <g font-size="13" fill="#c9d1d9" text-anchor="middle">
+    <text x="143.5" y="352">n = 0</text>
+    <text x="302.5" y="352">n = 2</text>
+    <text x="461.5" y="352">n = 32</text>
+    <text x="620.5" y="352">n = 63</text>
+  </g>
+  <text x="360" y="384" text-anchor="middle" font-size="11" fill="#6e7681">Apple clang (arm64), Release · Google Benchmark CPU time</text>
+</svg>

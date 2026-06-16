@@ -17,6 +17,10 @@
 caller-supplied exponent — with predictable behavior, exhaustive test coverage,
 and first-class cross-platform support.
 
+<p align="center">
+  <img src="docs/assets/demo.svg" width="700" alt="twopow-cli computing 2^10 = 1024">
+</p>
+
 ## Features
 
 - **Deterministic.** Identical inputs yield identical outputs on every supported
@@ -37,6 +41,24 @@ exponentiation across all supported platforms, and treats the boundary between
 the representable and the unrepresentable as an explicit, typed contract rather
 than undefined behavior.
 
+## How it works
+
+The complete execution pipeline for a call to `two_pow`:
+
+```mermaid
+flowchart TD
+    A([Caller invokes two_pow#40;n#41;]) --> B{Input validation gateway}
+    B -->|n &gt; 63| C[Construct typed<br/>twopow::overflow_error]
+    B -->|0 &le; n &le; 63| D[Acquire 64-bit<br/>unsigned accumulator]
+    D --> E[[Deterministic left-shift kernel<br/>1 &lt;&lt; n]]
+    E --> F[Marshal result to std::uint64_t]
+    F --> G([Return 2#8319; to caller])
+    C --> H([Propagate up the call stack])
+
+    style E fill:#1f6feb,stroke:#58a6ff,color:#fff
+    style C fill:#5a1e1e,stroke:#f85149,color:#fff
+```
+
 ## Performance
 
 `two_pow` compiles to a bounds check and a single shift instruction. Measured
@@ -48,6 +70,14 @@ with Google Benchmark on Apple clang (arm64):
 | 2        | ~0.91 ns | ~1.1 billion op/s |
 | 32       | ~0.91 ns | ~1.1 billion op/s |
 | 63       | ~0.91 ns | ~1.1 billion op/s |
+
+Throughput is invariant under exponent magnitude — a single shift, regardless of
+`n`. Against a naive `O(n)` doubling loop, the constant-time advantage compounds
+as the exponent grows:
+
+<p align="center">
+  <img src="docs/assets/benchmark.svg" width="720" alt="Time per call: twopow O(1) versus a naive doubling loop O(n)">
+</p>
 
 ## Installation
 
@@ -124,6 +154,25 @@ See [SECURITY.md](SECURITY.md) for the vulnerability disclosure policy.
 ## Roadmap
 
 See [ROADMAP.md](ROADMAP.md). Base-3 support is under evaluation.
+
+## Repository composition
+
+A breakdown of this repository by lines of source. The shaded contract,
+documentation, automation, and packaging exist to support a single line of
+computation.
+
+```mermaid
+pie showData
+    title Lines of source by category
+    "Docs & governance" : 435
+    "Build & packaging" : 343
+    "CI/CD & automation" : 326
+    "License (Apache-2.0)" : 202
+    "Tests" : 98
+    "CLI application" : 62
+    "Library scaffolding & API" : 58
+    "Actual computation (1 << n)" : 1
+```
 
 ## Contributing
 
