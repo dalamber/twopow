@@ -58,9 +58,10 @@ jobs:
           cmake --build build --target twopow_ffi
       - name: Test
         run: |
-          export LD_LIBRARY_PATH="$PWD/build:${LD_LIBRARY_PATH:-}"
-          cd wrappers/csharp
-          dotnet test
+          proj=wrappers/csharp/Twopow.Tests/Twopow.Tests.csproj
+          dotnet build "$proj" -c Release
+          cp build/libtwopow_ffi.so wrappers/csharp/Twopow.Tests/bin/Release/net8.0/
+          dotnet test "$proj" -c Release --no-build
 
   go:
     runs-on: ubuntu-latest
