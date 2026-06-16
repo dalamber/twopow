@@ -1,0 +1,107 @@
+name: Publish Packages
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  java:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          server-id: github
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+      - name: Build native and deploy
+        run: |
+          cd wrappers/java
+          bash build-native.sh
+          mvn -B -DskipTests deploy
+        env:
+          MAVEN_USERNAME: ${{ github.actor }}
+          MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+  kotlin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10"
+      - name: Build native and publish
+        run: |
+          cd wrappers/kotlin
+          bash build-native.sh
+          gradle publish --no-daemon
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  csharp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Build native FFI and stage runtime
+        run: |
+          cmake -S . -B build -DTWOPOW_BUILD_FFI=ON -DTWOPOW_BUILD_TESTS=OFF -DTWOPOW_BUILD_CLI=OFF
+          cmake --build build --target twopow_ffi
+          mkdir -p wrappers/csharp/Twopow/runtimes/linux-x64/native
+          cp build/libtwopow_ffi.so wrappers/csharp/Twopow/runtimes/linux-x64/native/
+      - name: Pack and push
+        run: |
+          dotnet pack wrappers/csharp/Twopow/Twopow.csproj -c Release -o nupkgs
+          dotnet nuget push "nupkgs/*.nupkg" \
+            --source "https://nuget.pkg.github.com/dalamber/index.json" \
+            --api-key "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate
+
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.pkg.github.com"
+      - name: Publish
+        run: cd wrappers/node && npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Build and push gem
+        run: |
+          cd wrappers/ruby
+          gem build twopow.gemspec
+          gem push --host "https://rubygems.pkg.github.com/dalamber" twopow-0.1.0.gem
+        env:
+          GEM_HOST_API_KEY: "Bearer ${{ secrets.GITHUB_TOKEN }}"
+
+  # Go and Swift are consumed directly from the git tag (no registry push):
+  #   Go:    go get github.com/dalamber/twopow/wrappers/go/twopow@<tag>
+  #   Swift: .package(url: "https://github.com/dalamber/twopow.git", from: "<version>")
+  tag-consumed:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Go and Swift are consumed via the git tag; no registry push required."

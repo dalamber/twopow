@@ -27,6 +27,7 @@
 [![Static Analysis](https://github.com/dalamber/twopow/actions/workflows/analysis.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/analysis.yml)
 [![Bindings](https://github.com/dalamber/twopow/actions/workflows/bindings.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/bindings.yml)
 [![Service](https://github.com/dalamber/twopow/actions/workflows/service.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/service.yml)
+[![Wrappers](https://github.com/dalamber/twopow/actions/workflows/wrappers.yml/badge.svg)](https://github.com/dalamber/twopow/actions/workflows/wrappers.yml)
 
 > Deterministic, high-performance base-2 exponentiation for modern C++.
 
@@ -146,6 +147,25 @@ int main() {
 - **Python** — a pybind11 module, `import pytwopow` (`-DTWOPOW_BUILD_PYTHON=ON`).
 - **WebAssembly** — an Emscripten/embind build with an interactive browser demo.
 
+## Language wrappers (SDKs)
+
+`twopow` ships as real, publishable SDKs in seven languages — each wrapping the
+same C core, each with its own tests in CI. See [`wrappers/`](wrappers/).
+
+| Language | Package | Registry | Module |
+|----------|---------|----------|--------|
+| Java | `io.github.dalamber:twopow` | GitHub Packages (Maven) | [`wrappers/java`](wrappers/java/README.md) |
+| Kotlin | `io.github.dalamber:twopow-kotlin` | GitHub Packages (Maven) | [`wrappers/kotlin`](wrappers/kotlin/README.md) |
+| C#/.NET | `Dalamber.Twopow` | GitHub Packages (NuGet) | [`wrappers/csharp`](wrappers/csharp/README.md) |
+| Node.js | `@dalamber/twopow` | GitHub Packages (npm) | [`wrappers/node`](wrappers/node/README.md) |
+| Ruby | `twopow` | GitHub Packages (RubyGems) | [`wrappers/ruby`](wrappers/ruby/README.md) |
+| Swift | `Twopow` (SwiftPM) | Git tag | [`wrappers/swift`](wrappers/swift/README.md) |
+| Go | `…/wrappers/go/twopow` | Git tag (module) | [`wrappers/go`](wrappers/go/README.md) |
+
+Each is published on a version tag by the
+[Publish Packages](.github/workflows/publish-packages.yml) workflow (GitHub
+Packages, via `GITHUB_TOKEN` — no external credentials).
+
 ## Exponentiation-as-a-Service
 
 A production-grade HTTP surface for `two_pow`, with an OpenAPI spec and Swagger
@@ -201,10 +221,11 @@ computation.
 ```mermaid
 pie showData
     title Lines of source by category
-    "Docs, spec & i18n" : 1078
-    "CI/CD & automation" : 504
-    "Build & packaging" : 428
-    "Bindings (C, Python, WASM)" : 229
+    "Language wrappers (7 SDKs)" : 1845
+    "Docs, spec & i18n" : 1311
+    "CI/CD & automation" : 652
+    "Build & packaging" : 412
+    "In-tree bindings (C, Python, WASM)" : 229
     "Tests, fuzzing & benchmarks" : 225
     "License (Apache-2.0)" : 202
     "HTTP service" : 169

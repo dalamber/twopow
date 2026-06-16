@@ -13,4 +13,9 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <!-- Native libraries are staged here in CI before packing. -->
+    <Content Include="runtimes/**" Pack="true" PackagePath="runtimes/" Condition="Exists('runtimes')" />
+  </ItemGroup>
+
 </Project>
