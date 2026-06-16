@@ -10,7 +10,7 @@ jobs:
   service:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Configure
         run: cmake -S . -B build -DTWOPOW_BUILD_SERVICE=ON -DTWOPOW_BUILD_TESTS=OFF -DTWOPOW_BUILD_CLI=OFF
       - name: Build

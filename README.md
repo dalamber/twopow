@@ -201,12 +201,14 @@ computation.
 ```mermaid
 pie showData
     title Lines of source by category
-    "Docs & governance" : 435
-    "Build & packaging" : 343
-    "CI/CD & automation" : 326
+    "Docs, spec & i18n" : 1078
+    "CI/CD & automation" : 504
+    "Build & packaging" : 428
+    "Bindings (C, Python, WASM)" : 229
+    "Tests, fuzzing & benchmarks" : 225
     "License (Apache-2.0)" : 202
-    "Tests" : 98
-    "CLI application" : 62
+    "HTTP service" : 169
+    "CLI application" : 76
     "Library scaffolding & API" : 58
     "Actual computation (1 << n)" : 1
 ```

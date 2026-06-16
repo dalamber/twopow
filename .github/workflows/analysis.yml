@@ -10,7 +10,7 @@ jobs:
   cppcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install cppcheck
         run: sudo apt-get update && sudo apt-get install -y cppcheck
       - name: Run cppcheck
@@ -26,7 +26,7 @@ jobs:
   scan-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install clang static analyzer
         run: sudo apt-get update && sudo apt-get install -y clang-tools cmake
       - name: Configure under scan-build

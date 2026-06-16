@@ -15,7 +15,7 @@ jobs:
       CC: clang
       CXX: clang++
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Configure
         run: cmake -S . -B build -DTWOPOW_BUILD_FUZZERS=ON -DTWOPOW_BUILD_TESTS=OFF -DTWOPOW_BUILD_CLI=OFF
       - name: Build fuzzer

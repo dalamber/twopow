@@ -10,7 +10,7 @@ jobs:
   c-api:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Configure
         run: cmake -S . -B build -DTWOPOW_BUILD_C_API=ON
       - name: Build
@@ -21,7 +21,7 @@ jobs:
   python:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -50,7 +50,7 @@ jobs:
   wasm:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: mymindstorm/setup-emsdk@v14
       - name: Build WASM module
         run: bash bindings/wasm/build.sh
