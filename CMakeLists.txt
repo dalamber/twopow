@@ -19,6 +19,7 @@ option(TWOPOW_BUILD_TESTS "Build the test suite" ON)
 option(TWOPOW_BUILD_BENCHMARKS "Build the benchmark suite" OFF)
 option(TWOPOW_BUILD_C_API "Build the C API binding" OFF)
 option(TWOPOW_BUILD_PYTHON "Build the Python binding" OFF)
+option(TWOPOW_BUILD_SERVICE "Build the HTTP service" OFF)
 option(TWOPOW_ENABLE_COVERAGE "Enable coverage instrumentation" OFF)
 
 # --- Library target -------------------------------------------------------
@@ -59,6 +60,10 @@ endif()
 
 if(TWOPOW_BUILD_PYTHON)
     add_subdirectory(bindings/python)
+endif()
+
+if(TWOPOW_BUILD_SERVICE)
+    add_subdirectory(service)
 endif()
 
 # --- Install / export -----------------------------------------------------

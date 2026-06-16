@@ -1,0 +1,80 @@
+openapi: 3.0.3
+info:
+  title: twopow Exponentiation-as-a-Service
+  description: Deterministic base-2 exponentiation over HTTP.
+  version: 0.1.0
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: /
+paths:
+  /healthz:
+    get:
+      summary: Liveness probe
+      responses:
+        "200":
+          description: Service is healthy
+  /v1/pow/{n}:
+    get:
+      summary: Compute 2 raised to the power n
+      parameters:
+        - name: n
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 63
+      responses:
+        "200":
+          description: Successful computation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PowResult"
+        "400":
+          description: Invalid exponent
+        "422":
+          description: Exponent exceeds the supported maximum
+  /v1/pow:
+    get:
+      summary: Compute 2 raised to the power n (query form)
+      parameters:
+        - name: n
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 63
+      responses:
+        "200":
+          description: Successful computation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PowResult"
+        "400":
+          description: Invalid exponent
+        "422":
+          description: Exponent exceeds the supported maximum
+components:
+  schemas:
+    PowResult:
+      type: object
+      properties:
+        base:
+          type: integer
+          example: 2
+        exponent:
+          type: integer
+          example: 10
+        result:
+          type: string
+          description: The exact result as a decimal string.
+          example: "1024"
+        result_uint64:
+          type: integer
+          format: int64
+          example: 1024
